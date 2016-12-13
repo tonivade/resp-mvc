@@ -21,12 +21,17 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-	mavenCentral()
+repositories { 
+  mavenLocal() 
+  mavenCentral() 
+  maven {
+    url = 'https://oss.sonatype.org/content/repositories/snapshots'
+  }
 }
 
-
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+  compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  compile('com.h2database:h2:1.4.193')
+  compile('com.github.tonivade:resp-server:0.5.0-SNAPSHOT')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
 }
