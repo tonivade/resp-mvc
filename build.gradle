@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.4.2.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext { 
+      springBootVersion = '1.4.2.RELEASE' 
+    }
+    repositories { 
+      mavenCentral() 
+    }
+    dependencies { 
+      classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+    }
 }
 
 apply plugin: 'java'
@@ -15,23 +15,24 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 jar {
-	baseName = 'resp-mvc'
-	version = '0.0.1-SNAPSHOT'
+    baseName = 'resp-mvc'
+    version = '0.0.1-SNAPSHOT'
 }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories { 
-  mavenLocal() 
-  mavenCentral() 
-  maven {
-    url = 'https://oss.sonatype.org/content/repositories/snapshots'
-  }
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { 
+      url = 'https://oss.sonatype.org/content/repositories/snapshots' 
+    }
 }
 
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter-data-jpa')
-  compile('com.h2database:h2:1.4.193')
-  compile('com.github.tonivade:resp-server:0.5.0-SNAPSHOT')
-  testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('com.h2database:h2:1.4.193')
+    compile('com.github.tonivade:resp-server:0.5.0-SNAPSHOT')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }

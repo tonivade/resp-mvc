@@ -1,4 +1,4 @@
-package com.github.tonivade;
+package com.github.tonivade.resp.mvc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
