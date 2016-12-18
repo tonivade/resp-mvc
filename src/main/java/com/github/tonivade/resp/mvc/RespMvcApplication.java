@@ -37,6 +37,11 @@ public class RespMvcApplication {
     public CommandWrapperFactory commandWrapperFactory(AutowireCapableBeanFactory factory) {
         return new SpringCommandWrapperFactory(factory);
     }
+    
+    @Bean
+    public RespMessageConverter respMessageConverter() {
+      return new RespMessageConverter();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(RespMvcApplication.class, args);
