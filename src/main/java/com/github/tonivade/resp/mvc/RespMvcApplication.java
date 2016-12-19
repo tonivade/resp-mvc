@@ -38,11 +38,6 @@ public class RespMvcApplication {
         return new SpringCommandWrapperFactory(factory);
     }
 
-    @Bean
-    public RespMessageConverter respMessageConverter() {
-      return new RespMessageConverter();
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(RespMvcApplication.class, args);
     }

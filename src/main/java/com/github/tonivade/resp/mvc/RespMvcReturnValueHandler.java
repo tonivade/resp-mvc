@@ -1,6 +1,6 @@
 package com.github.tonivade.resp.mvc;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,19 +10,20 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-public class RespHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
+public class RespMvcReturnValueHandler implements HandlerMethodReturnValueHandler {
+
+    public static final String RESP_RESULT = "RESP_RESULT";
 
     @Override
     public boolean supportsReturnType(MethodParameter returnType) {
          RequestMapping methodAnnotation = returnType.getMethodAnnotation(RequestMapping.class);
-         return methodAnnotation != null && Arrays.asList(methodAnnotation.produces()).contains("application/resp");
+         return methodAnnotation != null && asList(methodAnnotation.produces()).contains("application/resp");
     }
-
 
     @Override
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest) throws Exception {
         HttpServletRequest nativeRequest = webRequest.getNativeRequest(HttpServletRequest.class);
-        nativeRequest.setAttribute("RESP_RESULT", returnValue);
+        nativeRequest.setAttribute(RESP_RESULT, returnValue);
     }
 }

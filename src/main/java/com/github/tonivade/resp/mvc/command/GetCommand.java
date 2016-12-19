@@ -1,7 +1,6 @@
 package com.github.tonivade.resp.mvc.command;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +18,7 @@ import com.github.tonivade.resp.annotation.ParamLength;
 import com.github.tonivade.resp.command.ICommand;
 import com.github.tonivade.resp.command.IRequest;
 import com.github.tonivade.resp.command.IResponse;
-import com.github.tonivade.resp.mvc.RespHandlerMethodReturnValueHandler;
+import com.github.tonivade.resp.mvc.RespMvcReturnValueHandler;
 
 @Command("get")
 @ParamLength(1)
@@ -30,10 +29,9 @@ public class GetCommand implements ICommand {
     private RequestMappingHandlerAdapter handlerAdapter;
 
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         List<HandlerMethodReturnValueHandler> handlers = new ArrayList<>();
-        handlers.add(new RespHandlerMethodReturnValueHandler());
+        handlers.add(new RespMvcReturnValueHandler());
         handlers.addAll(handlerAdapter.getReturnValueHandlers());
         handlerAdapter.setReturnValueHandlers(handlers);
     }
@@ -47,9 +45,12 @@ public class GetCommand implements ICommand {
             HandlerExecutionChain handlerExecutionChain = mappings.getHandler(httpRequest);
             if (handlerExecutionChain != null) {
                 handlerAdapter.handle(httpRequest, httpResponse, handlerExecutionChain.getHandler());
-                RespSerializer serializer = new RespSerializer();
-                Object result = httpRequest.getAttribute("RESP_RESULT");
-                response.addArray(Arrays.asList(serializer.getValue(result)));
+                Object result = httpRequest.getAttribute(RespMvcReturnValueHandler.RESP_RESULT);
+                if (result != null) {
+                  response.addObject(result);
+                } else {
+                  response.addError("no response");
+                }
             } else {
                 response.addError("mapping not found: " + query);
             }

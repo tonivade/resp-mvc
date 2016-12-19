@@ -232,9 +232,4 @@ public class HttpServletResponseImpl implements HttpServletResponse {
         // TODO Auto-generated method stub
         return null;
     }
-
-    @Override
-    public String toString() {
-        return output.toString();
-    }
 }
