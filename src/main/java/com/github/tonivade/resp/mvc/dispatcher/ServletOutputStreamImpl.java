@@ -1,4 +1,4 @@
-package com.github.tonivade.resp.mvc.command;
+package com.github.tonivade.resp.mvc.dispatcher;
 
 import java.io.IOException;
 

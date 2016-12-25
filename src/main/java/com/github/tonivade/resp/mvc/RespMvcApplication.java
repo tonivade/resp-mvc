@@ -10,6 +10,7 @@ import com.github.tonivade.resp.RedisServer;
 import com.github.tonivade.resp.command.CommandSuite;
 import com.github.tonivade.resp.command.CommandWrapperFactory;
 import com.github.tonivade.resp.mvc.command.GetCommand;
+import com.github.tonivade.resp.mvc.command.PutCommand;
 
 @SpringBootApplication
 public class RespMvcApplication {
@@ -28,6 +29,7 @@ public class RespMvcApplication {
     public CommandSuite commandSuite(CommandWrapperFactory factory) {
         return new CommandSuite(factory) {
             {
+                addCommand(PutCommand.class);
                 addCommand(GetCommand.class);
             }
         };
@@ -37,7 +39,7 @@ public class RespMvcApplication {
     public CommandWrapperFactory commandWrapperFactory(AutowireCapableBeanFactory factory) {
         return new SpringCommandWrapperFactory(factory);
     }
-
+    
     public static void main(String[] args) {
         SpringApplication.run(RespMvcApplication.class, args);
     }

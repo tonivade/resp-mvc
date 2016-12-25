@@ -1,4 +1,4 @@
-package com.github.tonivade.resp.mvc.command;
+package com.github.tonivade.resp.mvc.dispatcher;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,10 +29,12 @@ import javax.servlet.http.Part;
 public class HttpServletRequestImpl implements HttpServletRequest {
 
     private String query;
+    private String command;
 
     private Map<String, Object> attributes = new HashMap<>();
 
-    public HttpServletRequestImpl(String query) {
+    public HttpServletRequestImpl(String command, String query) {
+        this.command = command.toUpperCase();
         this.query = query;
     }
 
@@ -299,7 +301,7 @@ public class HttpServletRequestImpl implements HttpServletRequest {
 
     @Override
     public String getMethod() {
-        return "GET";
+        return command;
     }
 
     @Override
