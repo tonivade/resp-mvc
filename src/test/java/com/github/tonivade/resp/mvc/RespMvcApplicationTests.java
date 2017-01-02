@@ -27,9 +27,12 @@ public class RespMvcApplicationTests {
     private SimpleRedisClient client;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         client = new SimpleRedisClient(host, port);
         client.start();
+        while (!client.isConnected()) {
+            Thread.sleep(10);
+        }
     }
 
     @After
