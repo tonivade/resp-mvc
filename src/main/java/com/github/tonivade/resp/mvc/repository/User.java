@@ -35,12 +35,12 @@ public class User
     return name;
   }
 
-  protected void setId(String id)
+  void setId(String id)
   {
     this.id = requireNonNull(id);
   }
 
-  protected void setName(String name)
+  void setName(String name)
   {
     this.name = requireNonNull(name);
   }

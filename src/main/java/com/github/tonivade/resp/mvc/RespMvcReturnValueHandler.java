@@ -12,12 +12,13 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 public class RespMvcReturnValueHandler implements HandlerMethodReturnValueHandler {
 
+    public static final String APPLICATION_RESP = "application/resp";
     public static final String RESP_RESULT = "RESP_RESULT";
 
     @Override
     public boolean supportsReturnType(MethodParameter returnType) {
          RequestMapping methodAnnotation = returnType.getMethodAnnotation(RequestMapping.class);
-         return methodAnnotation != null && asList(methodAnnotation.produces()).contains("application/resp");
+         return methodAnnotation != null && asList(methodAnnotation.produces()).contains(APPLICATION_RESP);
     }
 
     @Override
