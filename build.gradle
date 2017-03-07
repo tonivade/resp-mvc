@@ -36,6 +36,6 @@ dependencies {
     compile('org.springframework:spring-webmvc')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('com.h2database:h2:1.4.193')
-    compile('com.github.tonivade:resp-server:0.5.0-SNAPSHOT')
+    compile('com.github.tonivade:resp-server:0.5.0')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
