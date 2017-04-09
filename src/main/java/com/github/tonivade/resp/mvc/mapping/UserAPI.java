@@ -14,18 +14,18 @@ import com.github.tonivade.resp.mvc.repository.UserRepository;
 @RestController
 public class UserAPI {
 
-    @Autowired
-    private UserRepository repository;
+  @Autowired
+  private UserRepository repository;
 
-    @PostConstruct
-    public void init() {
-        repository.save(new User("agmunoz", "Antonio Muñoz"));
-        repository.save(new User("evledesma", "Vanessa Ledesma"));
-    }
+  @PostConstruct
+  public void init() {
+    repository.save(new User("agmunoz", "Antonio Muñoz"));
+    repository.save(new User("evledesma", "Vanessa Ledesma"));
+  }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/user/{id}", produces = "application/resp")
-    public User get(@PathVariable("id") String id) {
-        return repository.findOne(id);
-    }
+  @RequestMapping(method = RequestMethod.GET, path = "/user/{id}", produces = "application/resp")
+  public User get(@PathVariable("id") String id) {
+    return repository.findOne(id);
+  }
 
 }

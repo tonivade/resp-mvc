@@ -12,19 +12,19 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 public class RespMvcReturnValueHandler implements HandlerMethodReturnValueHandler {
 
-    public static final String APPLICATION_RESP = "application/resp";
-    public static final String RESP_RESULT = "RESP_RESULT";
+  public static final String APPLICATION_RESP = "application/resp";
+  public static final String RESP_RESULT = "RESP_RESULT";
 
-    @Override
-    public boolean supportsReturnType(MethodParameter returnType) {
-         RequestMapping methodAnnotation = returnType.getMethodAnnotation(RequestMapping.class);
-         return methodAnnotation != null && asList(methodAnnotation.produces()).contains(APPLICATION_RESP);
-    }
+  @Override
+  public boolean supportsReturnType(MethodParameter returnType) {
+    RequestMapping methodAnnotation = returnType.getMethodAnnotation(RequestMapping.class);
+    return methodAnnotation != null && asList(methodAnnotation.produces()).contains(APPLICATION_RESP);
+  }
 
-    @Override
-    public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
-            NativeWebRequest webRequest) throws Exception {
-        HttpServletRequest nativeRequest = webRequest.getNativeRequest(HttpServletRequest.class);
-        nativeRequest.setAttribute(RESP_RESULT, returnValue);
-    }
+  @Override
+  public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
+                                NativeWebRequest webRequest) throws Exception {
+    HttpServletRequest nativeRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+    nativeRequest.setAttribute(RESP_RESULT, returnValue);
+  }
 }

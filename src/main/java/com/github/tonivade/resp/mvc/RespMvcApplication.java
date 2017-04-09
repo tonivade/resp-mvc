@@ -9,36 +9,35 @@ import org.springframework.context.annotation.Bean;
 import com.github.tonivade.resp.RespServer;
 import com.github.tonivade.resp.command.CommandSuite;
 import com.github.tonivade.resp.command.CommandWrapperFactory;
-import com.github.tonivade.resp.mvc.command.GetCommand;
-import com.github.tonivade.resp.mvc.command.PutCommand;
+import com.github.tonivade.resp.mvc.dispatcher.RespRequestDispatcher;
 
 @SpringBootApplication
 public class RespMvcApplication {
 
-    @Value("${demo.host}")
-    private String host;
-    @Value("${demo.port}")
-    private int port;
+  @Value("${demo.host}")
+  private String host;
+  @Value("${demo.port}")
+  private int port;
 
-    @Bean(initMethod = "start")
-    public RespServer server(CommandSuite commands) {
-        return new RespServer(host, port, commands);
-    }
+  @Bean(initMethod = "start")
+  public RespServer server(CommandSuite commands) {
+    return new RespServer(host, port, commands);
+  }
 
-    @Bean
-    public CommandSuite commandSuite(CommandWrapperFactory factory) {
-        return new CommandSuite(factory) {{
-                addCommand(PutCommand.class);
-                addCommand(GetCommand.class);
-            }};
-    }
+  @Bean
+  public CommandSuite commandSuite(CommandWrapperFactory factory, RespRequestDispatcher dispatcher) {
+    return new CommandSuite(factory) {{
+      addCommand("get", request -> dispatcher.dispatch(request));
+      addCommand("put", request -> dispatcher.dispatch(request));
+    }};
+  }
 
-    @Bean
-    public CommandWrapperFactory commandWrapperFactory(AutowireCapableBeanFactory factory) {
-        return new SpringCommandWrapperFactory(factory);
-    }
+  @Bean
+  public CommandWrapperFactory commandWrapperFactory(AutowireCapableBeanFactory factory) {
+    return new SpringCommandWrapperFactory(factory);
+  }
 
-    public static void main(String[] args) {
-        SpringApplication.run(RespMvcApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(RespMvcApplication.class, args);
+  }
 }

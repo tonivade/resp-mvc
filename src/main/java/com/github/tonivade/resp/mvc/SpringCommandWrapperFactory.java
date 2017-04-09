@@ -7,16 +7,16 @@ import com.github.tonivade.resp.command.ICommand;
 
 public class SpringCommandWrapperFactory extends DefaultCommandWrapperFactory {
 
-    private AutowireCapableBeanFactory factory;
+  private AutowireCapableBeanFactory factory;
 
-    public SpringCommandWrapperFactory(AutowireCapableBeanFactory factory) {
-        this.factory = factory;
-    }
+  public SpringCommandWrapperFactory(AutowireCapableBeanFactory factory) {
+    this.factory = factory;
+  }
 
-    @Override
-    public ICommand wrap(Object command) {
-        factory.autowireBean(command);
-        factory.initializeBean(command, null);
-        return super.wrap(command);
-    }
+  @Override
+  public ICommand wrap(Object command) {
+    factory.autowireBean(command);
+    factory.initializeBean(command, null);
+    return super.wrap(command);
+  }
 }

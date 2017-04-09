@@ -19,31 +19,31 @@ import com.github.tonivade.resp.protocol.RedisToken;
 @SpringBootTest
 public class RespMvcApplicationTests {
 
-    @Value("${demo.host}")
-    private String host;
-    @Value("${demo.port}")
-    private int port;
+  @Value("${demo.host}")
+  private String host;
+  @Value("${demo.port}")
+  private int port;
 
-    private SimpleRedisClient client;
+  private SimpleRedisClient client;
 
-    @Before
-    public void setUp() throws InterruptedException {
-        client = new SimpleRedisClient(host, port);
-        client.start();
-        while (!client.isConnected()) {
-            Thread.sleep(10);
-        }
+  @Before
+  public void setUp() throws InterruptedException {
+    client = new SimpleRedisClient(host, port);
+    client.start();
+    while (!client.isConnected()) {
+      Thread.sleep(10);
     }
+  }
 
-    @After
-    public void tearDown() {
-        client.stop();
-    }
+  @After
+  public void tearDown() {
+    client.stop();
+  }
 
-    @Test
-    public void contextLoads() throws Exception {
-        RedisToken<?> response = client.send(array(string("GET"), string("/user/agmunoz")));
+  @Test
+  public void contextLoads() throws Exception {
+    RedisToken<?> response = client.send(array(string("GET"), string("/user/agmunoz")));
 
-        assertThat(response, equalTo(array(string("id"), string("agmunoz"), string("name"), string("Antonio Muñoz"))));
-    }
+    assertThat(response, equalTo(array(string("id"), string("agmunoz"), string("name"), string("Antonio Muñoz"))));
+  }
 }
