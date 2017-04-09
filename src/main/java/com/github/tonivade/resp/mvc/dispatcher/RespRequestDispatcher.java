@@ -1,5 +1,7 @@
 package com.github.tonivade.resp.mvc.dispatcher;
 
+import static com.github.tonivade.resp.protocol.RedisToken.error;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,9 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import com.github.tonivade.resp.command.IRequest;
-import com.github.tonivade.resp.command.IResponse;
 import com.github.tonivade.resp.mvc.RespMvcReturnValueHandler;
+import com.github.tonivade.resp.protocol.RedisToken;
+import com.github.tonivade.resp.protocol.RespSerializer;
 
 @Controller
 public class RespRequestDispatcher {
@@ -24,6 +27,8 @@ public class RespRequestDispatcher {
     private HandlerMapping mappings;
     @Autowired
     private RequestMappingHandlerAdapter handlerAdapter;
+
+    private final RespSerializer serializer = new RespSerializer();
 
     @PostConstruct
     public void init() {
@@ -33,7 +38,7 @@ public class RespRequestDispatcher {
         handlerAdapter.setReturnValueHandlers(handlers);
     }
 
-    public void dispatch(IRequest request, IResponse response) {
+    public RedisToken<?> dispatch(IRequest request) {
         try {
             String command = request.getCommand();
             String query = request.getParam(0).toString();
@@ -44,16 +49,16 @@ public class RespRequestDispatcher {
                 handlerAdapter.handle(httpRequest, httpResponse, handlerExecutionChain.getHandler());
                 Object result = httpRequest.getAttribute(RespMvcReturnValueHandler.RESP_RESULT);
                 if (result != null) {
-                    response.addObject(result);
+                  return serializer.getValue(result);
                 } else {
-                    response.addError("no response");
+                    return error("no response");
                 }
             } else {
-                response.addError("mapping not found: " + query);
+                return error("mapping not found: " + query);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.addError(e.getMessage());
+            return error(e.getMessage());
         }
     }
 }

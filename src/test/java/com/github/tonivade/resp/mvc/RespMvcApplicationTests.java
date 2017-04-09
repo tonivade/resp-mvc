@@ -42,8 +42,8 @@ public class RespMvcApplicationTests {
 
     @Test
     public void contextLoads() throws Exception {
-        RedisToken response = client.send(array(string("GET"), string("/user/agmunoz")));
+        RedisToken<?> response = client.send(array(string("GET"), string("/user/agmunoz")));
 
-        assertThat(response, equalTo(array(string("id"), string("agmunoz"),string("name"), string("Antonio Muñoz"))));
+        assertThat(response, equalTo(array(string("id"), string("agmunoz"), string("name"), string("Antonio Muñoz"))));
     }
 }

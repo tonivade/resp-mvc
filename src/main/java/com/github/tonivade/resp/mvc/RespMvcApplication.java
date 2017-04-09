@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.github.tonivade.resp.RedisServer;
+import com.github.tonivade.resp.RespServer;
 import com.github.tonivade.resp.command.CommandSuite;
 import com.github.tonivade.resp.command.CommandWrapperFactory;
 import com.github.tonivade.resp.mvc.command.GetCommand;
@@ -21,25 +21,23 @@ public class RespMvcApplication {
     private int port;
 
     @Bean(initMethod = "start")
-    public RedisServer server(CommandSuite commands) {
-        return new RedisServer(host, port, commands);
+    public RespServer server(CommandSuite commands) {
+        return new RespServer(host, port, commands);
     }
 
     @Bean
     public CommandSuite commandSuite(CommandWrapperFactory factory) {
-        return new CommandSuite(factory) {
-            {
+        return new CommandSuite(factory) {{
                 addCommand(PutCommand.class);
                 addCommand(GetCommand.class);
-            }
-        };
+            }};
     }
 
     @Bean
     public CommandWrapperFactory commandWrapperFactory(AutowireCapableBeanFactory factory) {
         return new SpringCommandWrapperFactory(factory);
     }
-    
+
     public static void main(String[] args) {
         SpringApplication.run(RespMvcApplication.class, args);
     }
