@@ -19,17 +19,14 @@ public class RespMvcApplication {
   @Value("${demo.port}")
   private int port;
 
-  @Bean(initMethod = "start")
+  @Bean(initMethod = "start", destroyMethod = "stop")
   public RespServer server(CommandSuite commands) {
     return new RespServer(host, port, commands);
   }
 
   @Bean
   public CommandSuite commandSuite(CommandWrapperFactory factory, RespRequestDispatcher dispatcher) {
-    return new CommandSuite(factory) {{
-      addCommand("get", request -> dispatcher.dispatch(request));
-      addCommand("put", request -> dispatcher.dispatch(request));
-    }};
+    return new RespCommandSuite(factory, dispatcher);
   }
 
   @Bean
