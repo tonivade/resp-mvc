@@ -25,7 +25,7 @@ public class UserAPI {
 
   @RequestMapping(method = RequestMethod.GET, path = "/user/{id}", produces = "application/resp")
   public User get(@PathVariable("id") String id) {
-    return repository.findOne(id);
+    return repository.findById(id).orElse(null);
   }
 
 }
