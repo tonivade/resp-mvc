@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.github.tonivade.resp.RespCallback;
 import com.github.tonivade.resp.RespClient;
 import com.github.tonivade.resp.protocol.RedisToken;
-import com.github.tonivade.resp.protocol.RedisToken.ArrayRedisToken;
 
 class SimpleRedisClient implements RespCallback {
 
@@ -15,7 +14,7 @@ class SimpleRedisClient implements RespCallback {
 
   private AtomicBoolean connected = new AtomicBoolean(false);
 
-  private BlockingQueue<RedisToken<?>> responses = new ArrayBlockingQueue<>(1);
+  private BlockingQueue<RedisToken> responses = new ArrayBlockingQueue<>(1);
 
   public SimpleRedisClient(String host, int port) {
     this.client = new RespClient(host, port, this);
@@ -40,11 +39,11 @@ class SimpleRedisClient implements RespCallback {
   }
 
   @Override
-  public void onMessage(RedisToken<?> token) {
+  public void onMessage(RedisToken token) {
     responses.offer(token);
   }
 
-  public RedisToken<?> send(ArrayRedisToken request) throws InterruptedException {
+  public RedisToken send(RedisToken request) throws InterruptedException {
     client.send(request);
     return responses.take();
   }
