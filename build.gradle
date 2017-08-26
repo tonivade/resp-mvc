@@ -1,5 +1,5 @@
 buildscript {
-  ext {  springBootVersion = '2.0.0.M1'  }
+  ext {  springBootVersion = '2.0.0.M3'  }
   repositories {
     mavenCentral()
     maven { url = 'https://repo.spring.io/milestone' }
