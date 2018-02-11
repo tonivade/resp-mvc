@@ -19,9 +19,9 @@ import com.github.tonivade.resp.protocol.RedisToken;
 @SpringBootTest
 public class RespMvcApplicationTests {
 
-  @Value("${demo.host}")
+  @Value("${resp.host}")
   private String host;
-  @Value("${demo.port}")
+  @Value("${resp.port}")
   private int port;
 
   private SimpleRedisClient client;
