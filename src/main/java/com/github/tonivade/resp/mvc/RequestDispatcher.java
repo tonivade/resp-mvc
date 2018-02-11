@@ -1,11 +1,6 @@
 package com.github.tonivade.resp.mvc;
 
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
-
 import java.net.URI;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -22,12 +17,10 @@ import com.github.tonivade.zeromock.Path;
 
 @Component
 public class RequestDispatcher {
-  private static final String ROOT = "/";
-
-  public Map<String, HttpService> services;
+  public final HttpService root;
   
-  public RequestDispatcher(List<HttpService> services) {
-    this.services = services.stream().collect(toMap(service -> ROOT + service.name(), identity()));
+  public RequestDispatcher(HttpService root) {
+    this.root = root;
   }
 
   public RedisToken execute(Request request) {
@@ -50,10 +43,6 @@ public class RequestDispatcher {
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {
-    return findService(request).flatMap(service -> service.handle(request.dropOneLevel()));
-  }
-  
-  private Optional<HttpService> findService(HttpRequest request) {
-    return Optional.ofNullable(services.get(ROOT + request.path().getAt(0)));
+    return root.handle(request);
   }
 }
