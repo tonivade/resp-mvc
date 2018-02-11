@@ -22,10 +22,10 @@ public class BooksConfig {
   @Bean
   public HttpService books(BooksModule module) {
     return new HttpService("books")
-      .when(post("/books"), created(module::createBook))
-      .when(get("/books"), ok(module::findAllBooks))
-      .when(get("/books/:id"), ok(module::findBook))
-      .when(delete("/books/:id"), ok(module::deleteBook))
-      .when(put("/books/:id"), ok(module::updateBook));
+      .when(post("/books"), created(request -> module.createBook(request.body().toString())))
+      .when(get("/books"), ok(request -> module.findAllBooks()))
+      .when(get("/books/:id"), ok(request -> module.findBook(request.pathParamAsInteger(1))))
+      .when(delete("/books/:id"), ok(request -> module.deleteBook(request.pathParamAsInteger(1))))
+      .when(put("/books/:id"), ok(request -> module.updateBook(request.pathParamAsInteger(1), request.body().toString())));
   }
 }

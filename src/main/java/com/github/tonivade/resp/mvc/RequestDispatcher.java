@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.tonivade.resp.command.Request;
 import com.github.tonivade.resp.protocol.RedisToken;
+import com.github.tonivade.resp.protocol.SafeString;
 import com.github.tonivade.zeromock.HttpHeaders;
 import com.github.tonivade.zeromock.HttpMethod;
 import com.github.tonivade.zeromock.HttpParams;
@@ -26,16 +27,20 @@ public class RequestDispatcher {
   public RedisToken execute(Request request) {
     HttpRequest httpRequest = convertToHttpRequest(request);
     Optional<HttpResponse> httpResponse = execute(httpRequest);
-    return httpResponse.map(res -> convertToHttpResponse(res)).orElse(RedisToken.error("not found"));
+    return httpResponse.map(this::convertToHttpResponse).orElse(RedisToken.error("not found"));
   }
 
   private HttpRequest convertToHttpRequest(Request request) {
     URI uri = URI.create(request.getParam(0).toString());
     return new HttpRequest(HttpMethod.valueOf(request.getCommand().toUpperCase()), 
                            new Path(uri.getPath()), 
-                           null, 
+                           body(request), 
                            HttpHeaders.empty(), 
                            new HttpParams(uri.getQuery()));
+  }
+
+  private SafeString body(Request request) {
+    return request.getOptionalParam(1).orElse(null);
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
