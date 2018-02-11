@@ -1,5 +1,9 @@
 package com.github.tonivade.resp.mvc;
 
+import static com.github.tonivade.resp.protocol.RedisToken.error;
+import static com.github.tonivade.resp.protocol.RedisToken.nullString;
+import static com.github.tonivade.resp.protocol.RedisToken.string;
+
 import java.net.URI;
 import java.util.Optional;
 
@@ -27,7 +31,7 @@ public class RequestDispatcher {
   public RedisToken execute(Request request) {
     HttpRequest httpRequest = convertToHttpRequest(request);
     Optional<HttpResponse> httpResponse = execute(httpRequest);
-    return httpResponse.map(this::convertToHttpResponse).orElse(RedisToken.error("not found"));
+    return httpResponse.map(this::convertToHttpResponse).orElse(error("not found"));
   }
 
   private HttpRequest convertToHttpRequest(Request request) {
@@ -44,7 +48,7 @@ public class RequestDispatcher {
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
-    return RedisToken.string(httpResponse.body().toString());
+    return httpResponse.body() != null ? string(httpResponse.body().toString()) : nullString();
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {
