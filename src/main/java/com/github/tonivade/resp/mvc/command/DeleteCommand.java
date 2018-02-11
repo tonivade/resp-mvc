@@ -8,8 +8,8 @@ import com.github.tonivade.resp.command.RespCommand;
 import com.github.tonivade.resp.mvc.RequestDispatcher;
 import com.github.tonivade.resp.protocol.RedisToken;
 
-@Command("get")
-public class GetCommand implements RespCommand {
+@Command("delete")
+public class DeleteCommand implements RespCommand {
   @Autowired
   private RequestDispatcher dispatcher;
 
