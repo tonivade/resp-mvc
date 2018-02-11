@@ -6,23 +6,23 @@ import java.util.List;
 
 public class BooksModule {
 
-  public List<Book> findAllBooks() {
+  public List<Book> findAll() {
     return asList(new Book(1, "title"));
   }
 
-  public Book findBook(Integer id) {
+  public Book find(Integer id) {
     return new Book(id, "title");
   }
 
-  public Book createBook(String title) {
+  public Book create(String title) {
     return new Book(1, title);
   }
 
-  public Object updateBook(Integer id, String title) {
+  public Object update(Integer id, String title) {
     return new Book(id, title);
   }
 
-  public Void deleteBook(Integer id) {
+  public Void delete(Integer id) {
     return null;
   }
   
