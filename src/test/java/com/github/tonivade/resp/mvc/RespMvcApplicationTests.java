@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2018, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
+ * Distributed under the terms of the MIT License
+ */
 package com.github.tonivade.resp.mvc;
 
 import org.junit.Test;
@@ -9,6 +13,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class RespMvcApplicationTests {
   @Test
-  public void contextLoads() {
-  }
+  public void contextLoads() { }
 }
