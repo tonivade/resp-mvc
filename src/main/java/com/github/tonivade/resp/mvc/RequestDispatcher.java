@@ -7,6 +7,7 @@ package com.github.tonivade.resp.mvc;
 import static com.github.tonivade.resp.protocol.RedisToken.error;
 import static com.github.tonivade.resp.protocol.RedisToken.nullString;
 import static com.github.tonivade.resp.protocol.RedisToken.string;
+import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class RequestDispatcher {
   public final HttpService root;
   
   public RequestDispatcher(HttpService root) {
-    this.root = root;
+    this.root = requireNonNull(root);
   }
 
   public RedisToken execute(Request request) {
@@ -56,6 +57,6 @@ public class RequestDispatcher {
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {
-    return root.handle(request);
+    return root.execute(request);
   }
 }
