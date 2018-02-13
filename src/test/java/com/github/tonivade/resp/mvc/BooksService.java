@@ -8,7 +8,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
-public class BooksModule {
+public class BooksService {
 
   public List<Book> findAll() {
     return asList(new Book(1, "title"));

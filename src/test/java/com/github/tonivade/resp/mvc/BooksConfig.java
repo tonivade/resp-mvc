@@ -19,17 +19,17 @@ import com.github.tonivade.zeromock.HttpService;
 @Configuration
 public class BooksConfig {
   @Bean
-  public BooksModule booksModule() {
-    return new BooksModule();
+  public BooksService booksModule() {
+    return new BooksService();
   }
   
   @Bean
-  public HttpService books(BooksModule books) {
+  public HttpService books(BooksAPI books) {
     return new HttpService("books")
-      .when(post("/books"), created(request -> books.create(request.body().toString())))
-      .when(get("/books"), ok(request -> books.findAll()))
-      .when(get("/books/:id"), ok(request -> books.find(request.pathParamAsInteger(1))))
-      .when(delete("/books/:id"), ok(request -> books.delete(request.pathParamAsInteger(1))))
-      .when(put("/books/:id"), ok(request -> books.update(request.pathParamAsInteger(1), request.body().toString())));
+      .when(post("/books"), created(books.create()))
+      .when(get("/books"), ok(books.findAll()))
+      .when(get("/books/:id"), ok(books.find()))
+      .when(delete("/books/:id"), ok(books.delete()))
+      .when(put("/books/:id"), ok(books.update()));
   }
 }
