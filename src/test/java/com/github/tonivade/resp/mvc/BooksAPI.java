@@ -4,6 +4,7 @@ import static com.github.tonivade.zeromock.Extractors.asInteger;
 import static com.github.tonivade.zeromock.Extractors.asString;
 import static com.github.tonivade.zeromock.Extractors.body;
 import static com.github.tonivade.zeromock.Extractors.pathParam;
+import static com.github.tonivade.zeromock.Handlers.force;
 import static com.github.tonivade.zeromock.Handlers.join;
 import static com.github.tonivade.zeromock.Handlers.split;
 
@@ -13,6 +14,7 @@ import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.tonivade.resp.mvc.BooksService.Book;
 import com.github.tonivade.zeromock.HttpRequest;
 
 @Component
@@ -24,20 +26,20 @@ public class BooksAPI {
     return service::findAll;
   }
 
-  public Function<HttpRequest, Object> update() {
+  public Function<HttpRequest, Book> update() {
     return join(getBookId(), getBookTitle()).andThen(split(service::update));
   }
 
-  public Function<HttpRequest, Object> find() {
+  public Function<HttpRequest, Book> find() {
     return getBookId().andThen(service::find);
   }
 
-  public Function<HttpRequest, Object> create() {
+  public Function<HttpRequest, Book> create() {
     return body().andThen(asString()).andThen(service::create);
   }
 
-  public Function<HttpRequest, Object> delete() {
-    return getBookId().andThen(service::delete);
+  public Function<HttpRequest, Void> delete() {
+    return getBookId().andThen(force(service::delete));
   }
 
   private static Function<HttpRequest, Integer> getBookId() {

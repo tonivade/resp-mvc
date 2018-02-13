@@ -26,8 +26,7 @@ public class BooksService {
     return new Book(id, title);
   }
 
-  public Void delete(Integer id) {
-    return null;
+  public void delete(Integer id) {
   }
   
   public static class Book {
