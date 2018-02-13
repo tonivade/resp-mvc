@@ -19,7 +19,7 @@ import com.github.tonivade.zeromock.HttpService;
 @Configuration
 public class BooksConfig {
   @Bean
-  public BooksService booksModule() {
+  public BooksService booksService() {
     return new BooksService();
   }
   
