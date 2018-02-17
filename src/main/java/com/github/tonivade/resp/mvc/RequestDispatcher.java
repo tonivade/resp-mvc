@@ -7,9 +7,11 @@ package com.github.tonivade.resp.mvc;
 import static com.github.tonivade.resp.protocol.RedisToken.error;
 import static com.github.tonivade.resp.protocol.RedisToken.nullString;
 import static com.github.tonivade.resp.protocol.RedisToken.string;
+import static com.github.tonivade.zeromock.Bytes.empty;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
+import java.nio.ByteBuffer;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -48,12 +50,12 @@ public class RequestDispatcher {
                            new HttpParams(uri.getQuery()));
   }
 
-  private SafeString body(Request request) {
-    return request.getOptionalParam(1).orElse(null);
+  private ByteBuffer body(Request request) {
+    return request.getOptionalParam(1).map(SafeString::getBuffer).orElse(empty());
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
-    return httpResponse.body() != null ? string(httpResponse.body().toString()) : nullString();
+    return httpResponse.body() != null ? string(new SafeString(httpResponse.body())) : nullString();
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {

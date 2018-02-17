@@ -4,8 +4,6 @@
  */
 package com.github.tonivade.resp.mvc;
 
-import static com.github.tonivade.zeromock.Handlers.created;
-import static com.github.tonivade.zeromock.Handlers.ok;
 import static com.github.tonivade.zeromock.Predicates.delete;
 import static com.github.tonivade.zeromock.Predicates.get;
 import static com.github.tonivade.zeromock.Predicates.post;
@@ -24,12 +22,17 @@ public class BooksConfig {
   }
   
   @Bean
+  public BooksAPI booksAPI(BooksService service) {
+    return new BooksAPI(service);
+  }
+  
+  @Bean
   public HttpService books(BooksAPI books) {
     return new HttpService("books")
-      .when(post("/books"), created(books.create()))
-      .when(get("/books"), ok(books.findAll()))
-      .when(get("/books/:id"), ok(books.find()))
-      .when(delete("/books/:id"), ok(books.delete()))
-      .when(put("/books/:id"), ok(books.update()));
+      .when(post("/books"), books.create())
+      .when(get("/books"), books.findAll())
+      .when(get("/books/:id"), books.find())
+      .when(delete("/books/:id"), books.delete())
+      .when(put("/books/:id"), books.update());
   }
 }
