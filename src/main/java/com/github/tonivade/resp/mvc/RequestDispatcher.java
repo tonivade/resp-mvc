@@ -55,7 +55,7 @@ public class RequestDispatcher {
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
-    return httpResponse.body() != null ? string(new SafeString(httpResponse.body())) : nullString();
+    return !httpResponse.isEmpty() ? string(new SafeString(httpResponse.body())) : nullString();
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {
