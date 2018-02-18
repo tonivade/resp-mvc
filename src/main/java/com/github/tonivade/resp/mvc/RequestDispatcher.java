@@ -11,7 +11,6 @@ import static com.github.tonivade.zeromock.Bytes.empty;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
-import java.nio.ByteBuffer;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.github.tonivade.resp.command.Request;
 import com.github.tonivade.resp.protocol.RedisToken;
 import com.github.tonivade.resp.protocol.SafeString;
+import com.github.tonivade.zeromock.Bytes;
 import com.github.tonivade.zeromock.HttpHeaders;
 import com.github.tonivade.zeromock.HttpMethod;
 import com.github.tonivade.zeromock.HttpParams;
@@ -50,12 +50,12 @@ public class RequestDispatcher {
                            new HttpParams(uri.getQuery()));
   }
 
-  private ByteBuffer body(Request request) {
-    return request.getOptionalParam(1).map(SafeString::getBuffer).orElse(empty());
+  private Bytes body(Request request) {
+    return request.getOptionalParam(1).map(SafeString::getBytes).map(Bytes::fromArray).orElse(empty());
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
-    return !httpResponse.isEmpty() ? string(new SafeString(httpResponse.body())) : nullString();
+    return !httpResponse.body().isEmpty() ? string(new SafeString(httpResponse.body().getBuffer())) : nullString();
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {
