@@ -33,7 +33,7 @@ repositories {
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('com.github.tonivade:spring-boot-starter-respmvc:0.1.0-SNAPSHOT')
-  compile('com.github.tonivade:zeromock:0.1.0')
+  compile('com.github.tonivade:zeromock:0.2.0')
   compile('com.h2database:h2:1.4.193')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
