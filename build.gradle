@@ -1,5 +1,5 @@
 buildscript {
-  ext {  springBootVersion = '2.0.0.RC2'  }
+  ext {  springBootVersion = '2.0.0.RELEASE'  }
   repositories { 
     mavenCentral() 
     maven { url = 'https://repo.spring.io/milestone' }
@@ -33,7 +33,7 @@ repositories {
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('com.github.tonivade:spring-boot-starter-respmvc:0.1.0-SNAPSHOT')
-  compile('com.github.tonivade:zeromock:0.2.0')
-  compile('com.h2database:h2:1.4.193')
+  compile('com.github.tonivade:zeromock-core:0.3.0-SNAPSHOT')
+  compile('com.h2database:h2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }

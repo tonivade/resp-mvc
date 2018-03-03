@@ -7,7 +7,7 @@ package com.github.tonivade.resp.mvc;
 import static com.github.tonivade.resp.protocol.RedisToken.error;
 import static com.github.tonivade.resp.protocol.RedisToken.nullString;
 import static com.github.tonivade.resp.protocol.RedisToken.string;
-import static com.github.tonivade.zeromock.Bytes.empty;
+import static com.github.tonivade.zeromock.core.Bytes.empty;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
@@ -18,14 +18,14 @@ import org.springframework.stereotype.Component;
 import com.github.tonivade.resp.command.Request;
 import com.github.tonivade.resp.protocol.RedisToken;
 import com.github.tonivade.resp.protocol.SafeString;
-import com.github.tonivade.zeromock.Bytes;
-import com.github.tonivade.zeromock.HttpHeaders;
-import com.github.tonivade.zeromock.HttpMethod;
-import com.github.tonivade.zeromock.HttpParams;
-import com.github.tonivade.zeromock.HttpRequest;
-import com.github.tonivade.zeromock.HttpResponse;
-import com.github.tonivade.zeromock.HttpService;
-import com.github.tonivade.zeromock.Path;
+import com.github.tonivade.zeromock.core.Bytes;
+import com.github.tonivade.zeromock.core.HttpHeaders;
+import com.github.tonivade.zeromock.core.HttpMethod;
+import com.github.tonivade.zeromock.core.HttpParams;
+import com.github.tonivade.zeromock.core.HttpPath;
+import com.github.tonivade.zeromock.core.HttpRequest;
+import com.github.tonivade.zeromock.core.HttpResponse;
+import com.github.tonivade.zeromock.core.HttpService;
 
 @Component
 public class RequestDispatcher {
@@ -44,7 +44,7 @@ public class RequestDispatcher {
   private HttpRequest convertToHttpRequest(Request request) {
     URI uri = URI.create(request.getParam(0).toString());
     return new HttpRequest(HttpMethod.valueOf(request.getCommand().toUpperCase()), 
-                           new Path(uri.getPath()), 
+                           new HttpPath(uri.getPath()), 
                            body(request), 
                            HttpHeaders.empty(), 
                            new HttpParams(uri.getQuery()));

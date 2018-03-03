@@ -4,15 +4,15 @@
  */
 package com.github.tonivade.resp.mvc;
 
-import static com.github.tonivade.zeromock.Predicates.delete;
-import static com.github.tonivade.zeromock.Predicates.get;
-import static com.github.tonivade.zeromock.Predicates.post;
-import static com.github.tonivade.zeromock.Predicates.put;
+import static com.github.tonivade.zeromock.core.Predicates.delete;
+import static com.github.tonivade.zeromock.core.Predicates.get;
+import static com.github.tonivade.zeromock.core.Predicates.post;
+import static com.github.tonivade.zeromock.core.Predicates.put;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.tonivade.zeromock.HttpService;
+import com.github.tonivade.zeromock.core.HttpService;
 
 @Configuration
 public class BooksConfig {
