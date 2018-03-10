@@ -29,10 +29,10 @@ public class BooksConfig {
   @Bean
   public HttpService books(BooksAPI books) {
     return new HttpService("books")
-      .when(post("/books"), books.create())
-      .when(get("/books"), books.findAll())
-      .when(get("/books/:id"), books.find())
-      .when(delete("/books/:id"), books.delete())
-      .when(put("/books/:id"), books.update());
+      .when(post("/books")).then(books.create())
+      .when(get("/books")).then(books.findAll())
+      .when(get("/books/:id")).then(books.find())
+      .when(delete("/books/:id")).then(books.delete())
+      .when(put("/books/:id")).then(books.update());
   }
 }

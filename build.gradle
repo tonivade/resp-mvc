@@ -6,7 +6,6 @@ buildscript {
   }
   dependencies { 
     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
-    classpath("io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE")
   }
 }
 
@@ -33,7 +32,7 @@ repositories {
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('com.github.tonivade:spring-boot-starter-respmvc:0.1.0-SNAPSHOT')
-  compile('com.github.tonivade:zeromock-core:0.3.0-SNAPSHOT')
+  compile('com.github.tonivade:zeromock-core:0.4.0')
   compile('com.h2database:h2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
