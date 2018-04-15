@@ -44,7 +44,7 @@ public class RequestDispatcher {
   private HttpRequest convertToHttpRequest(Request request) {
     URI uri = URI.create(request.getParam(0).toString());
     return new HttpRequest(HttpMethod.valueOf(request.getCommand().toUpperCase()), 
-                           new HttpPath(uri.getPath()), 
+                           HttpPath.from(uri.getPath()), 
                            body(request), 
                            HttpHeaders.empty(), 
                            new HttpParams(uri.getQuery()));

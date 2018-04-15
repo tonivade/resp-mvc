@@ -4,10 +4,10 @@
  */
 package com.github.tonivade.resp.mvc;
 
-import static com.github.tonivade.zeromock.core.Predicates.delete;
-import static com.github.tonivade.zeromock.core.Predicates.get;
-import static com.github.tonivade.zeromock.core.Predicates.post;
-import static com.github.tonivade.zeromock.core.Predicates.put;
+import static com.github.tonivade.zeromock.core.Matchers.delete;
+import static com.github.tonivade.zeromock.core.Matchers.get;
+import static com.github.tonivade.zeromock.core.Matchers.post;
+import static com.github.tonivade.zeromock.core.Matchers.put;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
