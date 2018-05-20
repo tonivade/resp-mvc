@@ -7,7 +7,7 @@ package com.github.tonivade.resp.mvc;
 import static com.github.tonivade.resp.protocol.RedisToken.error;
 import static com.github.tonivade.resp.protocol.RedisToken.nullString;
 import static com.github.tonivade.resp.protocol.RedisToken.string;
-import static com.github.tonivade.zeromock.core.Bytes.empty;
+import static com.github.tonivade.zeromock.api.Bytes.empty;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
@@ -18,14 +18,14 @@ import org.springframework.stereotype.Component;
 import com.github.tonivade.resp.command.Request;
 import com.github.tonivade.resp.protocol.RedisToken;
 import com.github.tonivade.resp.protocol.SafeString;
-import com.github.tonivade.zeromock.core.Bytes;
-import com.github.tonivade.zeromock.core.HttpHeaders;
-import com.github.tonivade.zeromock.core.HttpMethod;
-import com.github.tonivade.zeromock.core.HttpParams;
-import com.github.tonivade.zeromock.core.HttpPath;
-import com.github.tonivade.zeromock.core.HttpRequest;
-import com.github.tonivade.zeromock.core.HttpResponse;
-import com.github.tonivade.zeromock.core.HttpService;
+import com.github.tonivade.zeromock.api.Bytes;
+import com.github.tonivade.zeromock.api.HttpHeaders;
+import com.github.tonivade.zeromock.api.HttpMethod;
+import com.github.tonivade.zeromock.api.HttpParams;
+import com.github.tonivade.zeromock.api.HttpPath;
+import com.github.tonivade.zeromock.api.HttpRequest;
+import com.github.tonivade.zeromock.api.HttpResponse;
+import com.github.tonivade.zeromock.api.HttpService;
 
 @Component
 public class RequestDispatcher {
@@ -51,11 +51,15 @@ public class RequestDispatcher {
   }
 
   private Bytes body(Request request) {
-    return request.getOptionalParam(1).map(SafeString::getBytes).map(Bytes::fromArray).orElse(empty());
+    return request.getOptionalParam(1)
+        .map(SafeString::getBytes)
+        .map(Bytes::fromArray)
+        .orElse(empty());
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
-    return !httpResponse.body().isEmpty() ? string(new SafeString(httpResponse.body().getBuffer())) : nullString();
+    return !httpResponse.body().isEmpty() ? 
+        string(new SafeString(httpResponse.body().getBuffer())) : nullString();
   }
 
   private Optional<HttpResponse> execute(HttpRequest request) {
