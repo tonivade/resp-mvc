@@ -11,7 +11,6 @@ import static com.github.tonivade.zeromock.api.Bytes.empty;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URI;
-import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -26,9 +25,11 @@ import com.github.tonivade.zeromock.api.HttpPath;
 import com.github.tonivade.zeromock.api.HttpRequest;
 import com.github.tonivade.zeromock.api.HttpResponse;
 import com.github.tonivade.zeromock.api.HttpService;
+import com.github.tonivade.zeromock.core.Option;
 
 @Component
 public class RequestDispatcher {
+
   public final HttpService root;
   
   public RequestDispatcher(HttpService root) {
@@ -37,7 +38,7 @@ public class RequestDispatcher {
 
   public RedisToken execute(Request request) {
     HttpRequest httpRequest = convertToHttpRequest(request);
-    Optional<HttpResponse> httpResponse = execute(httpRequest);
+    Option<HttpResponse> httpResponse = execute(httpRequest);
     return httpResponse.map(this::convertToHttpResponse).orElse(error("not found"));
   }
 
@@ -62,7 +63,7 @@ public class RequestDispatcher {
         string(new SafeString(httpResponse.body().getBuffer())) : nullString();
   }
 
-  private Optional<HttpResponse> execute(HttpRequest request) {
+  private Option<HttpResponse> execute(HttpRequest request) {
     return root.execute(request);
   }
 }
