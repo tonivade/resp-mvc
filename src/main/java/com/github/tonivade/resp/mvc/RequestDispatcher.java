@@ -14,6 +14,7 @@ import java.net.URI;
 
 import org.springframework.stereotype.Component;
 
+import com.github.tonivade.purefun.type.Option;
 import com.github.tonivade.resp.command.Request;
 import com.github.tonivade.resp.protocol.RedisToken;
 import com.github.tonivade.resp.protocol.SafeString;
@@ -25,13 +26,12 @@ import com.github.tonivade.zeromock.api.HttpPath;
 import com.github.tonivade.zeromock.api.HttpRequest;
 import com.github.tonivade.zeromock.api.HttpResponse;
 import com.github.tonivade.zeromock.api.HttpService;
-import com.github.tonivade.zeromock.core.Option;
 
 @Component
 public class RequestDispatcher {
 
   public final HttpService root;
-  
+
   public RequestDispatcher(HttpService root) {
     this.root = requireNonNull(root);
   }
@@ -44,10 +44,10 @@ public class RequestDispatcher {
 
   private HttpRequest convertToHttpRequest(Request request) {
     URI uri = URI.create(request.getParam(0).toString());
-    return new HttpRequest(HttpMethod.valueOf(request.getCommand().toUpperCase()), 
-                           HttpPath.from(uri.getPath()), 
-                           body(request), 
-                           HttpHeaders.empty(), 
+    return new HttpRequest(HttpMethod.valueOf(request.getCommand().toUpperCase()),
+                           HttpPath.from(uri.getPath()),
+                           body(request),
+                           HttpHeaders.empty(),
                            new HttpParams(uri.getQuery()));
   }
 
@@ -59,7 +59,7 @@ public class RequestDispatcher {
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
-    return !httpResponse.body().isEmpty() ? 
+    return !httpResponse.body().isEmpty() ?
         string(new SafeString(httpResponse.body().getBuffer())) : nullString();
   }
 

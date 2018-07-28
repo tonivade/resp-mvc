@@ -15,16 +15,16 @@ import static com.github.tonivade.zeromock.api.Serializers.json;
 
 import java.util.List;
 
+import com.github.tonivade.purefun.Consumer1;
+import com.github.tonivade.purefun.Function1;
+import com.github.tonivade.purefun.Function2;
+import com.github.tonivade.purefun.Producer;
 import com.github.tonivade.resp.mvc.BooksService.Book;
 import com.github.tonivade.zeromock.api.HttpRequest;
 import com.github.tonivade.zeromock.api.RequestHandler;
-import com.github.tonivade.zeromock.core.Consumer1;
-import com.github.tonivade.zeromock.core.Function1;
-import com.github.tonivade.zeromock.core.Function2;
-import com.github.tonivade.zeromock.core.Producer;
 
 public class BooksAPI {
-  
+
   private final BooksService service;
 
   public BooksAPI(BooksService service) {
@@ -61,11 +61,11 @@ public class BooksAPI {
   private static Function1<HttpRequest, String> getBookTitle() {
     return body().andThen(asString());
   }
-  
+
   private static <T> RequestHandler okJson(Function1<HttpRequest, T> handler) {
     return ok(handler.andThen(json())).andThen(contentJson())::apply;
   }
-  
+
   private static <T> RequestHandler createdJson(Function1<HttpRequest, T> handler) {
     return created(handler.andThen(json())).andThen(contentJson())::apply;
   }
