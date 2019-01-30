@@ -39,7 +39,7 @@ public class RequestDispatcher {
   public RedisToken execute(Request request) {
     HttpRequest httpRequest = convertToHttpRequest(request);
     Option<HttpResponse> httpResponse = execute(httpRequest);
-    return httpResponse.map(this::convertToHttpResponse).orElse(error("not found"));
+    return httpResponse.map(this::convertToHttpResponse).getOrElse(error("not found"));
   }
 
   private HttpRequest convertToHttpRequest(Request request) {
@@ -55,7 +55,7 @@ public class RequestDispatcher {
     return request.getOptionalParam(1)
         .map(SafeString::getBytes)
         .map(Bytes::fromArray)
-        .orElse(empty());
+        .getOrElse(empty());
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
