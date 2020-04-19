@@ -11,7 +11,7 @@ import static com.github.tonivade.zeromock.api.Extractors.pathParam;
 import static com.github.tonivade.zeromock.api.Handlers.created;
 import static com.github.tonivade.zeromock.api.Handlers.ok;
 import static com.github.tonivade.zeromock.api.Headers.contentJson;
-import static com.github.tonivade.zeromock.api.Serializers.json;
+import static com.github.tonivade.zeromock.api.Serializers.objectToJson;
 
 import java.util.List;
 
@@ -63,10 +63,10 @@ public class BooksAPI {
   }
 
   private static <T> RequestHandler okJson(Function1<HttpRequest, T> handler) {
-    return ok(handler.andThen(json())).andThen(contentJson())::apply;
+    return ok(handler.andThen(objectToJson())).andThen(contentJson())::apply;
   }
 
   private static <T> RequestHandler createdJson(Function1<HttpRequest, T> handler) {
-    return created(handler.andThen(json())).andThen(contentJson())::apply;
+    return created(handler.andThen(objectToJson())).andThen(contentJson())::apply;
   }
 }

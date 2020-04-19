@@ -1,9 +1,10 @@
 buildscript {
-  ext {  springBootVersion = '2.0.5.RELEASE'  }
+  ext {  springBootVersion = '2.2.5.RELEASE'  }
   repositories { 
     mavenCentral() 
     maven { url = 'https://repo.spring.io/milestone' }
   }
+  
   dependencies { 
     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
   }
@@ -32,7 +33,7 @@ repositories {
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-data-jpa')
   compile('com.github.tonivade:spring-boot-starter-respmvc:0.3.0-SNAPSHOT')
-  compile('com.github.tonivade:zeromock-api:0.11.0-SNAPSHOT')
+  compile('com.github.tonivade:zeromock-api:0.12.0')
   compile('com.h2database:h2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
