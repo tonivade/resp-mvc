@@ -10,25 +10,25 @@ import static com.github.tonivade.resp.protocol.RedisToken.string;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.tonivade.resp.RespCallback;
 import com.github.tonivade.resp.RespClient;
 import com.github.tonivade.resp.protocol.RedisToken;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class RespMvcApplicationTests implements RespCallback {
+@ExtendWith(SpringExtension.class)
+class RespMvcApplicationTests implements RespCallback {
 
-  RespClient client = new RespClient("localhost", 7081, this);
+  private final RespClient client = new RespClient("localhost", 7081, this);
   
-  BlockingQueue<RedisToken> queue = new ArrayBlockingQueue<RedisToken>(1);
+  private final BlockingQueue<RedisToken> queue = new ArrayBlockingQueue<>(1);
 
   @Test
-  public void contextLoads() throws InterruptedException {
+  void contextLoads() throws InterruptedException {
     client.start();
     
     System.out.println(queue.take());
@@ -43,8 +43,7 @@ public class RespMvcApplicationTests implements RespCallback {
 
   @Override
   public void onDisconnect() {
-    // TODO Auto-generated method stub
-    
+    System.out.println("disconnected");
   }
 
   @Override
