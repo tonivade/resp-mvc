@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
+ * Copyright (c) 2018-2023, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
  * Distributed under the terms of the MIT License
  */
 package com.github.tonivade.resp.mvc;
@@ -20,12 +20,12 @@ public class BooksConfig {
   public BooksService booksService() {
     return new BooksService();
   }
-  
+
   @Bean
   public BooksAPI booksAPI(BooksService service) {
     return new BooksAPI(service);
   }
-  
+
   @Bean
   public HttpService books(BooksAPI books) {
     return new HttpService("books")

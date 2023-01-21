@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
+ * Copyright (c) 2018-2023, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
  * Distributed under the terms of the MIT License
  */
 package com.github.tonivade.resp.mvc;
@@ -24,15 +24,15 @@ import com.github.tonivade.resp.protocol.RedisToken;
 class RespMvcApplicationTests implements RespCallback {
 
   private final RespClient client = new RespClient("localhost", 7081, this);
-  
+
   private final BlockingQueue<RedisToken> queue = new ArrayBlockingQueue<>(1);
 
   @Test
   void contextLoads() throws InterruptedException {
     client.start();
-    
+
     System.out.println(queue.take());
-    
+
     client.stop();
   }
 

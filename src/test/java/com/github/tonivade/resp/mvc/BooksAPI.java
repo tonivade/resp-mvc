@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
+ * Copyright (c) 2018-2023, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
  * Distributed under the terms of the MIT License
  */
 package com.github.tonivade.resp.mvc;
@@ -69,17 +69,17 @@ public class BooksAPI {
 
   private static <T> RequestHandler okBook(Function1<HttpRequest, T> handler) {
     Function1<HttpRequest, Try<Bytes>> serialized = handler.andThen(objectToJson(Book.class));
-    return ok(serialized.andThen(Try::get)).andThen(contentJson())::apply;
+    return ok(serialized.andThen(Try::getOrElseThrow)).andThen(contentJson())::apply;
   }
 
   private static <T> RequestHandler okBooks(Function1<HttpRequest, T> handler) {
     Type listOfBooks = new TypeToken<List<Book>>() {}.getType();
     Function1<HttpRequest, Try<Bytes>> serialized = handler.andThen(objectToJson(listOfBooks));
-    return ok(serialized.andThen(Try::get)).andThen(contentJson())::apply;
+    return ok(serialized.andThen(Try::getOrElseThrow)).andThen(contentJson())::apply;
   }
 
   private static <T> RequestHandler createdBook(Function1<HttpRequest, T> handler) {
     Function1<HttpRequest, Try<Bytes>> serialized = handler.andThen(objectToJson(Book.class));
-    return created(serialized.andThen(Try::get)).andThen(contentJson())::apply;
+    return created(serialized.andThen(Try::getOrElseThrow)).andThen(contentJson())::apply;
   }
 }

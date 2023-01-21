@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
+ * Copyright (c) 2018-2023, Antonio Gabriel Muñoz Conejo <antoniogmc at gmail dot com>
  * Distributed under the terms of the MIT License
  */
 package com.github.tonivade.resp.mvc;
@@ -29,7 +29,7 @@ public class BooksService {
 
   public void delete(Integer id) {
   }
-  
+
   public static class Book {
     private final Integer id;
     private final String title;
@@ -38,7 +38,7 @@ public class BooksService {
       this.id = id;
       this.title = title;
     }
-    
+
     @Override
     public String toString() {
       return "Book(id:" + id + ",title:" + title + ")";
