@@ -55,7 +55,7 @@ public class RequestDispatcher {
     return request.getOptionalParam(1)
         .map(SafeString::getBytes)
         .map(Bytes::fromArray)
-        .getOrElse(empty());
+        .orElse(empty());
   }
 
   private RedisToken convertToHttpResponse(HttpResponse httpResponse) {
