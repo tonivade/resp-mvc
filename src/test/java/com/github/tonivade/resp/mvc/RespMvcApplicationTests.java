@@ -11,16 +11,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.tonivade.resp.RespCallback;
 import com.github.tonivade.resp.RespClient;
 import com.github.tonivade.resp.protocol.RedisToken;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 class RespMvcApplicationTests implements RespCallback {
 
   private final RespClient client = new RespClient("localhost", 7081, this);
@@ -38,7 +35,7 @@ class RespMvcApplicationTests implements RespCallback {
 
   @Override
   public void onConnect() {
-    client.send(array(string("POST"), string("/books"), string("Fundation")));
+    client.send(array(string("POST"), string("/books"), string("Foundation")));
   }
 
   @Override

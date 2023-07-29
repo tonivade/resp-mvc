@@ -4,15 +4,12 @@
  */
 package com.github.tonivade.resp.mvc;
 
-import static java.util.Arrays.asList;
-
 import java.util.List;
-import java.util.Objects;
 
 public class BooksService {
 
   public List<Book> findAll() {
-    return asList(new Book(1, "title"));
+    return List.of(new Book(1, "title"));
   }
 
   public Book find(Integer id) {
@@ -30,36 +27,7 @@ public class BooksService {
   public void delete(Integer id) {
   }
 
-  public static class Book {
-    private final Integer id;
-    private final String title;
+  public static record Book(Integer id, String titgle) {
 
-    public Book(Integer id, String title) {
-      this.id = id;
-      this.title = title;
-    }
-
-    @Override
-    public String toString() {
-      return "Book(id:" + id + ",title:" + title + ")";
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(id, title);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-      if (this == obj)
-        return true;
-      if (obj == null)
-        return false;
-      if (getClass() != obj.getClass())
-        return false;
-      Book other = (Book) obj;
-      return Objects.equals(this.id, other.id)
-          && Objects.equals(this.title, other.title);
-    }
   }
 }
