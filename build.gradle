@@ -5,7 +5,7 @@ plugins {
 }
 
 jar {
-  baseName = 'resp-mvc'
+  archiveBaseName = 'resp-mvc'
   version = '0.1.0-SNAPSHOT'
 }
 
