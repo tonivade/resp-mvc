@@ -24,7 +24,7 @@ repositories {
 
 dependencies {
   implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-  implementation('com.github.tonivade:spring-boot-starter-respmvc:0.5.0-SNAPSHOT')
+  implementation('com.github.tonivade:spring-boot-starter-respmvc:0.6.0-SNAPSHOT')
   implementation('com.github.tonivade:zeromock-api:0.18.0-SNAPSHOT')
   implementation('com.github.tonivade:purejson:0.5-SNAPSHOT')
   implementation('com.h2database:h2')
