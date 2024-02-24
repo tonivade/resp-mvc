@@ -16,10 +16,10 @@ import static com.github.tonivade.zeromock.api.Serializers.objectToJson;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import com.github.tonivade.purefun.Consumer1;
-import com.github.tonivade.purefun.Function1;
-import com.github.tonivade.purefun.Function2;
-import com.github.tonivade.purefun.Producer;
+import com.github.tonivade.purefun.core.Consumer1;
+import com.github.tonivade.purefun.core.Function1;
+import com.github.tonivade.purefun.core.Function2;
+import com.github.tonivade.purefun.core.Producer;
 import com.github.tonivade.purefun.type.Try;
 import com.github.tonivade.purejson.TypeToken;
 import com.github.tonivade.resp.mvc.BooksService.Book;
